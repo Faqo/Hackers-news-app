@@ -1,1 +1,1 @@
-# Hakers-news-app
+# Hackers-news-app
