@@ -1,7 +1,6 @@
 import { useState } from "react";
-// import Select from 'react-select';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
+
+
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -12,8 +11,9 @@ import { useEffect } from "react";
 import Grid from '@mui/material/Grid'
 import { GridCustomItem } from "./Components/GridCustomItem";
 import { LoadingNews } from "./Components/LoadingNews";
-
-
+import { ListItemIcon, ListItemText } from "@mui/material";
+import { DiAngularSimple , DiReact} from 'react-icons/di';
+import { FaVuejs } from 'react-icons/fa';
 const initValueSelector = () => {
     return JSON.parse(localStorage.getItem('selection')) || '';
 }
@@ -46,23 +46,37 @@ export const HackersnewsApp = () => {
             <h1>HACKERS NEWS</h1>
             <hr />
             {/* Selector de ui materials */}
-            <Box sx={{ minWidth: 30 }}>
-                <FormControl >
-                    <InputLabel id="demo-simple-select-label">Filtro</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={query}
-                        onChange={filter}
-                    >
-                        <MenuItem value={"Angular"}>Angular</MenuItem>
-                        <MenuItem value={"React"}>React</MenuItem>
-                        <MenuItem value={"Vuejs"}>Vuejs</MenuItem>
-                    </Select>
-                </FormControl>
-            </Box>
+            <FormControl sx={{ m: 1, minWidth: 240 }} size="small" >
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={query}
+                    onChange={filter}
+                >
+                <MenuItem value={"Angular"}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <DiAngularSimple />
+                        <div> Angular</div>
+                    </div>
+                </MenuItem>
 
+                <MenuItem value={"React"}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <DiReact />
+                            <div> React</div>
+                        </div>
+                    </MenuItem>
+
+                    <MenuItem value={"Vuejs"}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <FaVuejs />
+                            <div> Vuejs</div>
+                        </div>
+                    </MenuItem>
+                </Select>
+            </FormControl>
             {/* Fin del selector */}
+
             {/* contenedor de noticias */}
 
             {
@@ -70,7 +84,7 @@ export const HackersnewsApp = () => {
             }
             <Grid
                 container
-                rowSpacing={1}
+                rowSpacing={8}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 direction="row"
                 justifyContent="flex-start"
@@ -80,7 +94,7 @@ export const HackersnewsApp = () => {
             >
                 {
                     !!hits && hits.map((hit) => (
-                        <GridCustomItem key={hit.objectID} hit={hit}/>
+                        <GridCustomItem key={hit.objectID} {...hit}/>
                     ))
                 }
             </Grid>

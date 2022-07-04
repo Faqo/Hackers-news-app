@@ -1,9 +1,5 @@
 .Rectangle-26-Copy-23 {
 
-    width: 240px;
-  
-    height: 32px;
-  
     margin: 63px 114px 1px 150px;
   
     padding: 5px 12px 5px 12px;
@@ -13,5 +9,72 @@
     border: solid 1px #2e2e2e;
   
     background-color: #fff;
+  
+  }
+  .Rectangle {
+  
+    margin: 18px 40px 30px 150px;
+  
+    padding: 0 0 0 26px;
+  
+    opacity: 0.8;
+  
+    border-radius: 6px;
+  
+    border: solid 1px #979797;
+  
+    background-color: #fff;
+  
+  }
+  .oRectangle{
+  
+    margin: 18px 40px 30px 150px;
+  
+    padding: 0 0 0 26px;
+  
+    opacity: 0.4;
+  
+    border-radius: 6px;
+  
+    border: solid 1px #979797;
+  
+    background-color: #fff;
+  }
+  .texRectangle{  
+    margin: 6px 0 0;
+  
+    font-family: Roboto;
+  
+    font-size: 14px;
+  
+    font-weight: 500;
+  
+    font-stretch: normal;
+  
+    font-style: normal;
+  
+    line-height: 1.43;
+  
+    letter-spacing: 0.25px;
+  
+    color: #6b6b6b;
+  }
+
+  .cardContent{
+    display: grid;
+    justify-content: space-between;
+    align-Items: flex-start;
+    align-content: space-evenly;
+    justify-items: stretch;
+  }
+  img.Image-141 {
+
+    width: 24px;
+  
+    height: 24px;
+  
+    margin: 63px 13px 0 0;
+  
+    object-fit: contain;
   
   }
