@@ -1,57 +1,89 @@
-import { IconButton, Paper } from '@mui/material';
+import { Button, createTheme, IconButton, Paper, ThemeProvider } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TimeAgo from "react-timeago";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { red } from '@mui/material/colors';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { red,grey } from '@mui/material/colors';
 import { useEffect, useState } from 'react';
+import { PropTypes } from 'prop-types';
 
-export const GridCustomItem = ({ author, story_title, story_url, created_at, objectID }) => {
-    
+const initValueFav = (created_at) => {
+    const aux = JSON.parse(localStorage.getItem(`${created_at}`));
+    return aux?.fav || false;
+}
+
+export const GridCustomItem = ({ author, story_title="untitled", story_url, created_at }) => {
+
     const [hover, setHover] = useState(false);
+    const [fav, setFav] = useState(initValueFav(created_at));
 
-    function open(url) {
+    const open = (url) => {
         const win = window.open(url, '_blank');
         if (win != null) {
-          win.focus();
+            win.focus();
         }
-      }
+    } //metodo estandar para abrir un link en otra ventana
 
-      useEffect(() => {
-            console.log(hover); 
-      
-      }, [hover])
-      
+    const favHandle = () =>{
+        const aux = !fav;
+        setFav(aux);
+        post = {...post, fav:aux} //se cambia el estado del post para luego guardarlo en el localstorage
+    }
 
-      console.log(hover);
+    let post = {
+        author, story_title, story_url, created_at, fav
+    }
+
+    useEffect(() => {
+        fav ? localStorage.setItem(`${created_at}`, JSON.stringify(post))
+        : localStorage.removeItem(`${created_at}`, JSON.stringify(post));
+    }, [fav]) //siempre que se cambie el estado del post/noticia como favorito el useEffect guardara los datos en localstorage
 
     return (
         <Grid item zeroMinWidth xs={6} >
-            <Paper 
-                className={` ${hover ? 'oRectangle' : 'Rectangle'}`}
-                onMouseEnter={() => setHover(true)} onMouseLeave={()=>setHover(false)}
+            <Paper
+                className={` ${hover ? 'oRectangle' : 'Rectangle'}`} 
+                onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} 
+                // dentro de este componente se ve todo el sistema de cambio de opacidad de el post
             >
                 <Grid container spacing={4} >
                     <Grid item xs className='cardContent' >
                         <Grid item xs >
+                            {/* se uso TimeAgo un modulo para ayudar a dar el tiempo exacto en la tarjeta */}
                             <Typography variant="caption" color="initial"> <AccessTimeIcon fontSize="smaller" /> <TimeAgo date={created_at} /> by {author || "author"} `</Typography>
                         </Grid>
                         <Grid item xs >
-                            <Typography onClick={()=>open(story_url)} className='textRectangle' variant="body1" color="initial" sx={{ cursor: "pointer" }} gutterBottom> {story_title || "untitled"} </Typography>
+                            <Typography 
+                                onClick={() => open(story_url)} 
+                                className='textRectangle' 
+                                variant="body1" color="initial" 
+                                sx={{ cursor: "pointer" }} gutterBottom
+                                > {story_title || 'Untitled'} 
+                                </Typography>
                         </Grid>
                     </Grid>
-
-                    {/* hit.author, hit.story_title, hit.story_url, hit.created_at */}
-                    <Grid item>
-                        <IconButton sx={{ width: 68, height: 90 }}>
-                            {/* <Img alt="complex" src="/static/images/grid/complex.jpg" /> */}
-                            {/* si el objectID esta en favoritos, dentro de localstorage entonces muestra el corazon completo */}
-                            <FavoriteBorderIcon sx={{ width: 24, height: 22, color: red[500] }} />
-                        </IconButton>
+                    
+                    <Grid item >
+                        {/* en este componente se revisara la logica de cambio de icono a la hora de marcar un post como favorito */}
+                        <Button onClick={favHandle} className='RectangleBox' sx={{bgcolor: grey[200], }}>
+                            {
+                                !!fav ? 
+                                <FavoriteIcon sx={{ width: 24, height: 22, color: red[500] }} />
+                                :<FavoriteBorderIcon sx={{ width: 24, height: 22, color: red[500] }} />
+                            }  
+                        </Button>
                     </Grid>
                 </Grid>
             </Paper>
         </Grid>
     )
+}
+
+GridCustomItem.propTypes = {
+    author:PropTypes.string, 
+    story_title:PropTypes.string,
+    story_url:PropTypes.string, 
+    created_at: PropTypes.string,
 }
