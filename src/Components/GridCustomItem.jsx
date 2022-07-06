@@ -1,4 +1,4 @@
-import { Button, createTheme, IconButton, Paper, ThemeProvider } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TimeAgo from "react-timeago";
@@ -46,6 +46,7 @@ export const GridCustomItem = ({ author, story_title="untitled", story_url, crea
     return (
         <Grid item zeroMinWidth xs={6} >
             <Paper
+                aria-label='paper'
                 className={` ${hover ? 'oRectangle' : 'Rectangle'}`} 
                 onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} 
                 // dentro de este componente se ve todo el sistema de cambio de opacidad de el post
@@ -54,7 +55,10 @@ export const GridCustomItem = ({ author, story_title="untitled", story_url, crea
                     <Grid item xs className='cardContent' >
                         <Grid item xs >
                             {/* se uso TimeAgo un modulo para ayudar a dar el tiempo exacto en la tarjeta */}
-                            <Typography variant="caption" color="initial"> <AccessTimeIcon fontSize="smaller" /> <TimeAgo date={created_at} /> by {author || "author"} `</Typography>
+                            <Typography variant="caption" color="initial"> 
+                                <AccessTimeIcon fontSize="smaller" /> 
+                                <TimeAgo date={created_at} /> by {author || "author"}
+                            </Typography>
                         </Grid>
                         <Grid item xs >
                             <Typography 
@@ -72,8 +76,8 @@ export const GridCustomItem = ({ author, story_title="untitled", story_url, crea
                         <Button onClick={favHandle} className='RectangleBox' sx={{bgcolor: grey[200], }}>
                             {
                                 !!fav ? 
-                                <FavoriteIcon sx={{ width: 24, height: 22, color: red[500] }} />
-                                :<FavoriteBorderIcon sx={{ width: 24, height: 22, color: red[500] }} />
+                                <FavoriteIcon aria-label='trueFav' sx={{ width: 24, height: 22, color: red[500] }} />
+                                :<FavoriteBorderIcon aria-label='falseFav' sx={{ width: 24, height: 22, color: red[500] }} />
                             }  
                         </Button>
                     </Grid>
