@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useRouteMatch } from '../Hooks/useRouteMatch';
 
 export const CustomNavTab = () => {
-    {/* metodos para usar los componentes de MUI de custom tabs con navegacion */}
+    // metodos para usar los componentes de MUI de custom tabs con navegacion 
     const routeMatch = useRouteMatch(['/', '/favorites']);
     const currentTab = routeMatch?.pattern?.path;  
 

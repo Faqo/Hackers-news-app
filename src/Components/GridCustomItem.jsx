@@ -9,15 +9,17 @@ import { red,grey } from '@mui/material/colors';
 import { useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
+//esta funcion permitira rescatar el estado de la fila, si esta seleccionado como favorito o no en localstorage, recibira el date perteneciente a la fila desde created_at
 const initValueFav = (created_at) => {
     const aux = JSON.parse(localStorage.getItem(`${created_at}`));
     return aux?.fav || false;
 }
 
 export const GridCustomItem = ({ author, story_title="untitled", story_url, created_at }) => {
+    //se desestructuraron los datos para hacer mas facil el manejo en el componente
 
-    const [hover, setHover] = useState(false);
-    const [fav, setFav] = useState(initValueFav(created_at));
+    const [hover, setHover] = useState(false); //con este valor se manejara la opacidad de la casilla en la que el mouse esta pasando
+    const [fav, setFav] = useState(initValueFav(created_at)); //aqui se seteara si el componente tendra la marca de favorito o no.
 
     const open = (url) => {
         const win = window.open(url, '_blank');
