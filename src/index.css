@@ -101,7 +101,7 @@
   .cardContent{
     display: grid;
     justify-content: space-between;
-    align-Items: flex-start;
+    align-items: flex-start;
     align-content: space-evenly;
     justify-items: stretch;
   }
