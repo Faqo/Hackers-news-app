@@ -38,6 +38,7 @@ export const MainView = () => {
                         ? <LoadingNews />
                         :
                         <Grid
+                            aria-label="Grid"
                             container
                             spacing={2}
                             columns={16}
@@ -59,7 +60,7 @@ export const MainView = () => {
                 //igual que para los datos se uso el isLoading pero negado en este caso para indicar cuando debia mostrar el componente de paginacion
                 !isLoading &&
                 <CustomPagination
-                    totalPage={data?.nbPages - 1}
+                    totalPage={data?.nbPages-1}
                     page={page}
                     onChange={handleChange}
                 /> //componente personalizado para la paginacion, este recibe la cantidad de paginas de datos fetchados, la pagina en la que se encuentra la app y el manejador de pagina
