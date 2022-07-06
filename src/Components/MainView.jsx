@@ -16,7 +16,7 @@ export const MainView = () => {
 
     const [page, setPage] = useState(1);
 
-    const { data, isLoading } = useFetch(`http://hn.algolia.com/api/v1/search_by_date?query=${query}&hitsPerPage=8&page=${page}`);
+    const { data, isLoading } = useFetch(`https://hn.algolia.com/api/v1/search_by_date?query=${query}&hitsPerPage=8&page=${page}`);
 
     const hits = !!data && data.hits;
 
